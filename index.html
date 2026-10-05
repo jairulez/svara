@@ -1,0 +1,138 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Svara</title><style>:root{--bg:#faf8f5;--ink:#241f21;--ink2:#5c5558;--line:#e8e3de;--teal:#3f7f72;--tealbg:#e8f1ee;--sand:#f2ece6;--red:#c0333c;--card:#fff}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.01em;line-height:1.2;margin:0 0 12px}
+h1{font-size:clamp(32px,6vw,52px)}h2{font-size:clamp(24px,4vw,32px)}h3{font-size:19px}
+p{margin:0 0 12px}a{color:var(--teal)}
+.banner{position:sticky;top:0;z-index:50;background:#241f21;color:#fff;font-size:13px;line-height:1.4;padding:8px 16px;text-align:center}
+.banner b{color:#bfe3d9}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;flex-wrap:wrap}
+.logo{font-family:Georgia,serif;font-size:24px;letter-spacing:.14em}
+.logo small{font-family:inherit;font-size:11px;letter-spacing:.05em;color:var(--ink2);margin-left:8px}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1px solid var(--line)}
+nav.tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 12px;min-height:44px;font:inherit;color:var(--ink2);cursor:pointer}
+nav.tabs button.on{color:var(--ink);border-color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;font:inherit;cursor:pointer;text-decoration:none}
+.btn.alt{background:transparent;color:var(--ink);border-color:#cfc8c2}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.row{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin:12px 0}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.note{background:var(--sand);border-radius:12px;padding:14px 16px;margin:12px 0;font-size:14px}
+.note.bad{background:#fbe9ea;color:#7c1d24}
+.muted{color:var(--ink2);font-size:14px}
+.pill{display:inline-block;background:var(--tealbg);color:#255a50;border-radius:999px;padding:2px 12px;font-size:13px;margin:2px 4px 2px 0}
+.pill.s{background:var(--sand);color:var(--ink2)}.pill.r{background:#fbe9ea;color:#7c1d24}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0}
+.scale button,.chip{min-height:48px;border:1px solid var(--line);background:#fff;border-radius:12px;font:inherit;cursor:pointer;color:var(--ink)}
+.scale button:hover,.chip:hover{border-color:var(--teal)}
+.scale button b{display:block;font-size:20px}.scale button small{font-size:11px;color:var(--ink2)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.chip{padding:0 14px;border-radius:999px}.chip.on{border-color:var(--teal);background:var(--tealbg);font-weight:600}
+.bar{display:grid;grid-template-columns:130px 1fr 36px;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+.bar i{display:block;height:10px;border-radius:5px;background:var(--teal)}.bar div{background:var(--sand);border-radius:5px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:var(--ink2);font-weight:600}
+.tw{overflow-x:auto}
+textarea,input[type=text],input[type=email],input[type=password],select{width:100%;font:inherit;border:1px solid #d6cfc8;border-radius:10px;padding:10px;background:#fff;color:var(--ink)}
+label.ck{display:flex;gap:10px;align-items:flex-start;margin:10px 0}label.ck input{width:20px;height:20px;margin-top:4px}
+.hero{padding:40px 0 24px}.sw{display:inline-block;position:relative;width:46px;height:26px}
+.msg{border-top:1px solid var(--line);padding-top:10px;margin-top:12px}
+footer{padding:32px 0 48px;color:var(--ink2);font-size:13px}
+svg text{font:11px sans-serif;fill:#5c5558}
+@media(max-width:600px){.bar{grid-template-columns:96px 1fr 30px}}
+</style></head><body><div id="app"></div><script>const SB_URL='https://epedefnrawpwdbbkyopc.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVwZWRlZm5yYXdwd2RiYmt5b3BjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyMTQ4ODIsImV4cCI6MjEwNjc5MDg4Mn0.bTeHJXav5mICQb0cq35qlyaXcbDy7dkhob28TnTpxwM';
+const DIMS=['Sleep','Energy','Mood','Relaxation','Motivation','Focus','Recovery','Social connection'];
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const avg=a=>a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length):null;
+const sgn=x=>(x>0?'+':'')+x;
+const word=x=>x>=4?'improving':x<=-4?'lower':'steady';
+/* ---- tiny Supabase client (auth + REST), no external scripts ---- */
+const SB={
+ sess:JSON.parse(localStorage.getItem('sv_sess_'+location.pathname.split('/')[1]||'')||'null'),
+ key(){return 'sv_sess_'+(location.pathname.split('/')[1]||'')},
+ save(s){this.sess=s;if(s)localStorage.setItem(this.key(),JSON.stringify(s));else localStorage.removeItem(this.key())},
+ async auth(path,body){const r=await fetch(SB_URL+'/auth/v1/'+path,{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json();if(!r.ok)throw new Error(j.msg||j.error_description||j.message||'Request failed');return j},
+ async signup(email,password,name){const j=await this.auth('signup',{email,password,data:{name}});if(!j.access_token)throw new Error('Sign-up needs email confirmation, which is off in this test project. Try signing in.');this.save({at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-60)*1000,uid:j.user.id,email});return j},
+ async login(email,password){const j=await this.auth('token?grant_type=password',{email,password});this.save({at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-60)*1000,uid:j.user.id,email});return j},
+ async token(){if(!this.sess)return null;if(Date.now()>this.sess.exp){try{const j=await this.auth('token?grant_type=refresh_token',{refresh_token:this.sess.rt});this.save({at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in-60)*1000,uid:this.sess.uid,email:this.sess.email})}catch(e){this.save(null);return null}}return this.sess.at},
+ logout(){this.save(null)},
+ async req(path,opt={}){const t=await this.token();const h={apikey:SB_KEY,Authorization:'Bearer '+(t||SB_KEY),'Content-Type':'application/json'};if(opt.prefer)h.Prefer=opt.prefer;
+  const r=await fetch(SB_URL+'/rest/v1/'+path,{method:opt.method||'GET',headers:h,body:opt.body?JSON.stringify(opt.body):undefined});const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch(e){}
+  if(!r.ok)throw new Error((j&&(j.message||j.hint))||'Request failed ('+r.status+')');return j},
+ get(t,q=''){return this.req(t+(q?'?'+q:''))},
+ ins(t,b,ret=false){return this.req(t,{method:'POST',body:b,prefer:ret?'return=representation':'return=minimal'})},
+ upd(t,q,b){return this.req(t+'?'+q,{method:'PATCH',body:b,prefer:'return=representation'})},
+ del(t,q){return this.req(t+'?'+q,{method:'DELETE',prefer:'return=minimal'})},
+ rpc(fn,a={}){return this.req('rpc/'+fn,{method:'POST',body:a})}
+};
+function banner(role){return `<div class="banner"><b>Test environment, not medical advice.</b> ${role} Do not enter real health information. Not a doctor, nothing for sale.</div>`}
+function line(vals,w=560,h=160,color='#3f7f72'){if(vals.length<2)return '<p class="muted">Not enough data yet.</p>';const p=28,mx=w-p-8,my=h-p-8;const pts=vals.map((v,i)=>[p+i*mx/(vals.length-1),8+my-(v/100)*my]);let g='';[0,50,100].forEach(t=>{const y=8+my-(t/100)*my;g+=`<line x1="${p}" x2="${w-8}" y1="${y}" y2="${y}" stroke="#e8e3de"/><text x="2" y="${y+4}">${t}</text>`});return `<svg viewBox="0 0 ${w} ${h}" width="100%" role="img" aria-label="trend chart">${g}<polyline fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" points="${pts.map(p=>p.join(',')).join(' ')}"/><circle cx="${pts[pts.length-1][0]}" cy="${pts[pts.length-1][1]}" r="4" fill="${color}"/></svg>`}
+function spark(vals,w=90,h=26){if(vals.length<2)return '';const mn=Math.min(...vals),mxv=Math.max(...vals),r=(mxv-mn)||1;return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline fill="none" stroke="#3f7f72" stroke-width="2" points="${vals.map((v,i)=>[i*w/(vals.length-1),h-2-((v-mn)/r)*(h-4)].join(',')).join(' ')}"/></svg>`}
+/* checkin value 1..5 -> 0..100 score */
+const score=v=>Math.round((v-1)/4*80+10);
+function byDim(rows){const o={};DIMS.forEach(d=>o[d]=[]);rows.forEach(r=>{if(o[r.dimension])o[r.dimension].push({t:new Date(r.created_at).getTime(),s:score(r.value)})});Object.values(o).forEach(a=>a.sort((x,y)=>x.t-y.t));return o}
+function dimStats(series){const DAY=864e5,now=Date.now();return DIMS.map(d=>{const a=series[d]||[];const first=a.slice(0,Math.max(1,Math.min(3,a.length))).map(x=>x.s);const recent=a.filter(x=>x.t>now-7*DAY).map(x=>x.s);const prev=a.filter(x=>x.t<=now-7*DAY&&x.t>now-14*DAY).map(x=>x.s);const b=avg(first),c=avg(recent.length?recent:a.slice(-3).map(x=>x.s));return {d,n:a.length,base:b,cur:c,delta:(b!=null&&c!=null)?c-b:null,wk:(avg(recent)!=null&&avg(prev)!=null)?avg(recent)-avg(prev):null,vals:a.map(x=>x.s)}})}
+/* claim checker */
+function checkClaims(t,rules){const h=[];(rules||[]).forEach(r=>{if(r.active===false)return;try{const m=new RegExp(r.pattern,'i').exec(t);if(m)h.push({match:m[0],why:r.reason})}catch(e){}});return h}
+/* safety classifier (rule-based) */
+function classify(t){const s=t.toLowerCase();
+if(/(chest pain|can't breathe|cannot breathe|overdose|unconscious|seizure|stroke)/.test(s))return'EMERGENCY';
+if(/(hurt myself|end my life|suicid|kill myself|don't want to live|no reason to live)/.test(s))return'POTENTIAL_CRISIS';
+if(/(side effect|reaction|rash|dizzy|vomit|allergic)/.test(s))return'ADVERSE_REACTION';
+if(/(how much|dose|dosage|mg\b)/.test(s)&&/(take|product|gumm|extract|oil|tea|capsule)/.test(s))return'PRODUCT_DOSAGE';
+if(/(medication|medicine|pill|tablet)/.test(s))return'MEDICATION_QUESTION';
+if(/(diagnos|do i have|disease|disorder|insomnia|depress|anxiety|condition)/.test(s))return'MEDICAL_QUESTION';
+return'NORMAL_WELLNESS'}
+const RESP={MEDICAL_QUESTION:'That sounds like something a qualified professional can assess. I cannot diagnose. I can help you note what you have reported and prepare questions for a clinician.',MEDICATION_QUESTION:'I cannot advise on starting, stopping or changing any medication. Please talk to your prescriber or pharmacist. I can help you write down questions for them.',PRODUCT_DOSAGE:'Dosage is for a clinician or the approved product label. I cannot set or suggest doses.',ADVERSE_REACTION:'If you feel unwell after taking anything, stop and contact your clinician or a doctor. If it is severe, get urgent care.',POTENTIAL_CRISIS:'I am glad you said something. You do not have to handle this alone. Please contact a trusted person or a crisis line now. In India you can call Tele-MANAS at 14416. I cannot assess or diagnose.',EMERGENCY:'This may be an emergency. Please call your local emergency number now (112 in India) or go to the nearest hospital.'};
+function download(name,obj){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}));a.download=name;a.click()}
+function loginForm(title,sub,onsubmit,allowSignup){return `<div class="card" style="max-width:440px;margin:24px auto"><h2>${title}</h2><p class="muted">${sub}</p><form onsubmit="event.preventDefault();${onsubmit}"><p><input id="em" type="email" placeholder="Email" autocomplete="username" required></p><p><input id="pw" type="password" placeholder="Password" autocomplete="current-password" required minlength="8"></p><div id="err" class="note bad" style="display:none"></div><div class="row"><button class="btn" type="submit">Sign in</button>${allowSignup?'<button class="btn alt" type="button" onclick="showSignup()">Create account</button>':''}</div></form></div>`}
+let S={view:'home',prof:null,checks:[],snaps:[],qs:[],routs:[],content:[],rules:[],flags:{},consents:[],shares:[],clin:[],log:[],guide:[],snap:{i:0,v:{}},msg:''};
+const app=$('#app');
+const tabs=[['home','Dashboard'],['check','60-second check'],['daily','Daily check-in'],['guide','Svara Guide'],['routines','Routines'],['learn','Learn'],['privacy','Privacy & sharing']];
+function shell(inner){return `${banner('Customer app (test accounts only).')}<div class="wrap"><header class="top"><div class="logo">Svara <small>wellness tracker</small></div><div class="row"><span class="muted">${esc(SB.sess.email)}</span><button class="btn alt" onclick="SB.logout();boot()">Sign out</button></div></header><nav class="tabs">${tabs.map(t=>`<button class="${S.view===t[0]?'on':''}" onclick="go('${t[0]}')">${t[1]}</button>`).join('')}</nav>${inner}<footer>Svara is a wellness tracker, not a medical device. It does not diagnose, treat or prescribe. Demo preview, not medical advice.</footer></div>`}
+function go(v){S.view=v;S.msg='';render()}
+async function boot(){if(!SB.sess||!(await SB.token())){app.innerHTML=banner('Customer app (test accounts only).')+`<div class="wrap">`+loginForm('Welcome to Svara','Sign in or create a test account. Use a made-up email. Do not enter real health information.','doLogin()',true)+'</div>';return}
+ try{await load();render()}catch(e){app.innerHTML=shell(`<div class="note bad">${esc(e.message)}</div>`)}}
+async function doLogin(){try{await SB.login($('#em').value,$('#pw').value);boot()}catch(e){const x=$('#err');x.style.display='block';x.textContent=e.message}}
+function showSignup(){app.innerHTML=banner('Customer app (test accounts only).')+`<div class="wrap"><div class="card" style="max-width:440px;margin:24px auto"><h2>Create a test account</h2><form onsubmit="event.preventDefault();doSignup()"><p><input id="nm" type="text" placeholder="First name" required></p><p><input id="em" type="email" placeholder="Email (made up is fine)" required></p><p><input id="pw" type="password" placeholder="Password (8+ characters)" minlength="8" required></p><label class="ck"><input id="c1" type="checkbox" required> I understand this is a test. I will not enter real health information.</label><label class="ck"><input id="c2" type="checkbox" required> I agree Svara stores my test entries to show my trends. I can export or delete them anytime.</label><label class="ck"><input id="c3" type="checkbox" required> I understand Svara is not medical advice and cannot diagnose.</label><div id="err" class="note bad" style="display:none"></div><div class="row"><button class="btn" type="submit">Create account</button><button class="btn alt" type="button" onclick="boot()">Back</button></div></form></div></div>`}
+async function doSignup(){try{await SB.signup($('#em').value,$('#pw').value,$('#nm').value);await SB.ins('consents',[{user_id:SB.sess.uid,kind:'terms_test_env',granted:true},{user_id:SB.sess.uid,kind:'store_entries',granted:true},{user_id:SB.sess.uid,kind:'not_medical_advice',granted:true}]);boot()}catch(e){const x=$('#err');x.style.display='block';x.textContent=e.message}}
+async function load(){const[p,c,s,q,r,ct,ru,fl,co,sh,cl,lg]=await Promise.all([SB.get('profiles','select=*&id=eq.'+SB.sess.uid),SB.get('checkins','select=*&order=created_at.asc'),SB.get('snapshots','select=*&order=created_at.asc'),SB.get('questions','select=*&active=eq.true&order=id'),SB.get('routines','select=*&active=eq.true&order=id'),SB.get('content','select=*&active=eq.true'),SB.get('claim_rules','select=*&active=eq.true'),SB.get('feature_flags','select=*'),SB.get('consents','select=*&order=created_at.desc'),SB.get('clinician_shares','select=*&order=created_at.desc'),SB.rpc('list_clinicians'),SB.get('access_log','select=*&order=created_at.desc&limit=50')]);
+ S.prof=p[0];S.checks=c;S.snaps=s;S.qs=q;S.routs=r;S.content=ct;S.rules=ru;S.flags=Object.fromEntries(fl.map(f=>[f.key,f.enabled]));S.consents=co;S.shares=sh;S.clin=cl;S.log=lg}
+function render(){const v=S.view;const m=S.msg?`<div class="note">${esc(S.msg)}</div>`:'';app.innerHTML=shell(m+({home:vHome,check:vCheck,daily:vDaily,guide:vGuide,routines:vRoutines,learn:vLearn,privacy:vPrivacy}[v])())}
+function vHome(){const ser=byDim(S.checks.map(c=>c));const st=dimStats(ser);const snapLast=S.snaps[S.snaps.length-1];
+ const have=S.checks.length||S.snaps.length;
+ if(!have)return `<div class="hero"><h2>Hi ${esc(S.prof?.display_name||'')}, let's find your starting point</h2><p>A 60-second check gives you a baseline across eight areas. Then short check-ins show what is changing. No diagnosis, no scores that claim to be medical.</p><button class="btn" onclick="go('check')">Start the 60-second check</button></div>`;
+ const rows=st.filter(x=>x.n).map(x=>`<tr><td>${x.d}</td><td>${x.cur}</td><td>${x.delta==null?'':sgn(x.delta)} <span class="pill">${word(x.delta||0)}</span></td><td>${spark(x.vals)}</td></tr>`).join('');
+ const all=S.checks.slice().sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)).map(c=>score(c.value));
+ return `<div class="grid"><div class="card"><h3>Overall trend</h3>${line(all.length>1?all:[],560,150)}<p class="muted">Average of your check-in answers, scaled 0-100. A pattern you reported, not a measurement.</p></div><div class="card"><h3>Today</h3><p>${S.checks.filter(c=>new Date(c.created_at).toDateString()===new Date().toDateString()).length} answers logged today.</p><div class="row"><button class="btn" onclick="go('daily')">Daily check-in</button><button class="btn alt" onclick="go('check')">Retake 60-second check</button></div></div></div><div class="card"><h3>By area</h3><div class="tw"><table><tr><th>Area</th><th>Now</th><th>Change since start</th><th>Trend</th></tr>${rows}</table></div><p class="muted">Based on what you reported. Not a diagnosis. For health concerns, talk to a clinician.</p></div>`}
+function vCheck(){const i=S.snap.i;if(i>=DIMS.length){return `<div class="card"><h3>Your starting point</h3><div class="tw"><table>${DIMS.map(d=>`<tr><td>${d}</td><td>${S.snap.v[d]}</td></tr>`).join('')}</table></div><p class="muted">Scores are what you reported, scaled 0-100.</p><div class="row"><button class="btn" onclick="saveSnap()">Save as my baseline</button><button class="btn alt" onclick="S.snap={i:0,v:{}};render()">Redo</button></div></div>`}
+ const d=DIMS[i];return `<div class="card"><p class="muted">Question ${i+1} of ${DIMS.length}</p><div class="bar"><i style="width:${i/DIMS.length*100}%"></i></div><h3>How has your ${d.toLowerCase()} been over the past week?</h3><div class="scale">${[1,2,3,4,5].map(n=>`<button onclick="snapA(${n})"><b>${n}</b>${['Very poor','Poor','Okay','Good','Very good'][n-1]}</button>`).join('')}</div></div>`}
+function snapA(n){S.snap.v[DIMS[S.snap.i]]=score(n);S.snap.i++;render()}
+async function saveSnap(){await SB.ins('snapshots',{user_id:SB.sess.uid,scores:S.snap.v});await SB.ins('checkins',DIMS.map(d=>({user_id:SB.sess.uid,question_id:'snapshot',dimension:d,value:Math.round((S.snap.v[d]-10)/80*4+1)})));S.snap={i:0,v:{}};await load();S.view='home';S.msg='Baseline saved.';render()}
+function vDaily(){const today=new Date().toDateString();const done=new Set(S.checks.filter(c=>new Date(c.created_at).toDateString()===today).map(c=>c.question_id));const q=S.qs.filter(x=>!done.has(x.id)).slice(0,3);
+ if(!q.length)return `<div class="card"><h3>All done for today</h3><p>Thanks. Come back tomorrow, or check your dashboard.</p></div>`;
+ return `<div class="card"><h3>Today's check-in</h3><p class="muted">Three quick questions. Skip any you like.</p>${q.map(x=>`<div style="margin:14px 0"><p><b>${esc(x.text)}</b></p><div class="chips">${x.opts.map((o,k)=>`<span class="chip" onclick="ans('${x.id}','${x.dimension}',${k+1})">${esc(o)}</span>`).join('')}</div></div>`).join('')}</div>`}
+async function ans(id,dim,v){await SB.ins('checkins',{user_id:SB.sess.uid,question_id:id,dimension:dim,value:v});await load();S.msg='Saved.';render()}
+function vGuide(){return `<div class="card"><h3>Svara Guide</h3><p class="muted">A rule-based helper. It explains your trends and points you to routines. It is not an AI doctor and cannot diagnose, advise on medication or set doses.</p><div class="chips">${['What changed this week?','Suggest a routine for sleep','What should I ask a doctor?'].map(x=>`<span class="chip" onclick="ask(this.textContent)">${x}</span>`).join('')}</div><div id="chat">${S.guide.map(m=>`<div class="msg ${m.me?'me':''}">${esc(m.t)}</div>`).join('')}</div><form onsubmit="event.preventDefault();ask($('#gq').value)" class="row" style="margin-top:12px"><input id="gq" type="text" placeholder="Ask about your trends or routines" style="flex:1"><button class="btn" type="submit">Send</button></form></div>`}
+async function ask(t){if(!t.trim())return;S.guide.push({me:1,t});const cat=classify(t);let r;if(cat!=='NORMAL_WELLNESS'){r=RESP[cat];try{await SB.ins('safety_events',{user_id:SB.sess.uid,category:cat})}catch(e){}}else{const l=t.toLowerCase();const st=dimStats(byDim(S.checks)).filter(x=>x.n);
+ if(/change|week|trend/.test(l)){r=st.length?st.map(x=>`${x.d}: ${word(x.delta||0)}${x.wk!=null?' ('+sgn(x.wk)+' vs last week)':''}`).join('. ')+'. This is based on what you reported, not a diagnosis.':'Take the 60-second check first and I will have something to compare.'}
+ else if(/routine|sleep|energy|stress|focus|relax/.test(l)){const k=S.routs.find(x=>(x.goal||'').toLowerCase().split(/\W+/).some(w=>w.length>3&&l.includes(w)))||S.routs[0];r=k?`Try "${k.name}" (${k.minutes} min): ${k.steps}`:'No routines are switched on right now.'}
+ else if(/doctor|clinician|ask/.test(l)){r='Good questions to bring: what has changed and since when, what you have already tried, whether anything you take could matter, and what to watch for. You can share a summary from Privacy & sharing if you choose.'}
+ else r='I can show what changed in your check-ins, suggest a routine, or help prepare questions for a clinician.'}
+ S.guide.push({t:r});render();$('#gq')?.focus()}
+function vRoutines(){return `<div class="grid">${S.routs.map(r=>`<div class="card"><h3>${esc(r.name)}</h3><p class="muted">${esc(r.goal||'')} · ${r.minutes} min · ${esc(r.freq||'')}</p><p>${esc(r.steps)}</p>${r.safety_notes?`<p class="note">${esc(r.safety_notes)}</p>`:''}<button class="btn alt" onclick="startGoal('${r.id}')">${(S.prof?.goals||[]).includes(r.id)?'On my list':'Add to my goals'}</button></div>`).join('')}</div>`}
+async function startGoal(id){const g=Array.from(new Set([...(S.prof?.goals||[]),id]));await SB.upd('profiles','id=eq.'+SB.sess.uid,{goals:g});await load();render()}
+function vLearn(){return `<div class="grid">${S.content.map(c=>`<div class="card"><span class="pill">${esc(c.category||'')}</span><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p></div>`).join('')}</div>${S.flags.products_visible?'':'<p class="muted">No products are listed. Svara does not sell or recommend products.</p>'}`}
+function vPrivacy(){const c=S.consents;const share=S.shares.filter(s=>s.active);return `<div class="grid"><div class="card"><h3>Consent log</h3><div class="tw"><table><tr><th>When</th><th>What</th><th></th></tr>${c.map(x=>`<tr><td>${new Date(x.created_at).toLocaleString()}</td><td>${esc(x.kind)}</td><td>${x.granted?'granted':'withdrawn'}</td></tr>`).join('')}</table></div></div>
+<div class="card"><h3>Share with a clinician</h3><p class="muted">Off by default. Choose who and how far back. You can stop at any time.</p>${share.map(s=>`<p>Sharing last ${s.range_days} days with ${esc((S.clin.find(k=>k.id===s.clinician_id)||{}).display_name||'clinician')} <button class="btn alt" onclick="stopShare(${s.id})">Stop sharing</button></p>`).join('')||'<p class="muted">Not sharing with anyone.</p>'}
+<p><select id="shc">${S.clin.map(k=>`<option value="${k.id}">${esc(k.display_name)} (sample clinician)</option>`).join('')}</select></p><p><select id="shr"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select></p><p><textarea id="shg" placeholder="Goals to tell the clinician (optional)"></textarea></p><p><textarea id="shq" placeholder="Questions for the clinician (optional)"></textarea></p><button class="btn" onclick="doShare()">Share my summary</button></div>
+<div class="card"><h3>Your data</h3><div class="row"><button class="btn" onclick="exportData()">Download my data (JSON)</button><button class="btn alt" onclick="delAcct()">Delete my account and data</button></div><p class="muted">Deleting removes your profile, check-ins, consents and shares permanently.</p></div>
+<div class="card"><h3>Who looked at my data</h3><div class="tw"><table>${S.log.map(x=>`<tr><td>${new Date(x.created_at).toLocaleString()}</td><td>${esc(x.action)}</td></tr>`).join('')||'<tr><td>No access recorded.</td></tr>'}</table></div></div></div>`}
+async function doShare(){const cid=$('#shc').value;if(!cid)return;await SB.ins('clinician_shares',{user_id:SB.sess.uid,clinician_id:cid,range_days:+$('#shr').value,goals_note:$('#shg').value,questions_note:$('#shq').value});await SB.ins('consents',{user_id:SB.sess.uid,kind:'share_clinician',granted:true});await SB.ins('access_log',{user_id:SB.sess.uid,actor:SB.sess.uid,action:'You shared a summary with a clinician'});await load();S.msg='Shared. You can stop anytime.';render()}
+async function stopShare(id){await SB.upd('clinician_shares','id=eq.'+id,{active:false});await SB.ins('consents',{user_id:SB.sess.uid,kind:'share_clinician',granted:false});await load();S.msg='Sharing stopped.';render()}
+async function exportData(){await load();download('svara-my-data.json',{exported_at:new Date().toISOString(),profile:S.prof,snapshots:S.snaps,checkins:S.checks,consents:S.consents,shares:S.shares,access_log:S.log})}
+async function delAcct(){if(!confirm('Delete your account and all your data? This cannot be undone.'))return;await SB.rpc('delete_my_account');SB.logout();boot()}
+boot();
+</script></body></html>
